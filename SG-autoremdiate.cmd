@@ -197,6 +197,9 @@ def clean_security_group(region_name, sg_id, report):
                 elif ip_protocol in ["icmp", "icmpv6"]:
                     ip_permission_entry["FromPort"] = from_port if from_port is not None else -1
                     ip_permission_entry["ToPort"] = to_port if to_port is not None else -1
+                elif ip_protocol == "-1":
+                    ip_permission_entry["FromPort"] = from_port if from_port is not None else -0
+                    ip_permission_entry["ToPort"] = to_port if to_port is not None else 65535
  
                 revoke_params = {"GroupId": sg_id, "IpPermissions": [ip_permission_entry]}
  
